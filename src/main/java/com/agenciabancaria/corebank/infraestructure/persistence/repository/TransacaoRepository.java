@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface TransacaoRepository extends JpaRepository<TransacaoEntity, Long> {
 
-    @Query("SELECT t FROM TransacaoEntity t WHERE t.contaOrigem.id = :contaId ORDER BY t.dataTransacao DESC")
+    List<TransacaoEntity> findByContaOrigemIdOrContaDestinoId(Long contaOrigemId, Long contaDestinoId);
+
+    @Query("SELECT t FROM TransacaoEntity t WHERE t.contaOrigem.id = :contaId OR t.contaDestino.id = :contaId ORDER BY t.dataTransacao DESC")
     List<TransacaoEntity> buscarExtratoPorConta(@Param("contaId")  Long contaId);
 
 }
