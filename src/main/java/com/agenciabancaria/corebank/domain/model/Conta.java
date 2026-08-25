@@ -1,5 +1,5 @@
 package com.agenciabancaria.corebank.domain.model;
-import com.agenciabancaria.corebank.enums.StatusConta;
+import com.agenciabancaria.corebank.domain.enums.StatusConta;
 import lombok.*;
 
 import java.math.BigDecimal;

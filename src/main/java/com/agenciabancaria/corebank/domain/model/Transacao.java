@@ -1,5 +1,5 @@
 package com.agenciabancaria.corebank.domain.model;
-import com.agenciabancaria.corebank.enums.TipoTransacao;
+import com.agenciabancaria.corebank.domain.enums.TipoTransacao;
 import lombok.*;
 
 import java.math.BigDecimal;

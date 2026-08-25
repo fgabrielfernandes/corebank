@@ -1,5 +1,5 @@
 package com.agenciabancaria.corebank.domain.model;
-import com.agenciabancaria.corebank.enums.TipoPerfil;
+import com.agenciabancaria.corebank.domain.enums.TipoPerfil;
 import lombok.*;
 
 import java.time.LocalDateTime;

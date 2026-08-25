@@ -1,4 +1,4 @@
-package com.agenciabancaria.corebank.enums;
+package com.agenciabancaria.corebank.domain.enums;
 
 public enum StatusConta {
     ATIVA,

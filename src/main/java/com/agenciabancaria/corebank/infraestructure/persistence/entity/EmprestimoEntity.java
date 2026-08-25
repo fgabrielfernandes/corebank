@@ -1,6 +1,6 @@
 package com.agenciabancaria.corebank.infraestructure.persistence.entity;
 
-import com.agenciabancaria.corebank.enums.StatusEmprestimo;
+import com.agenciabancaria.corebank.domain.enums.StatusEmprestimo;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
