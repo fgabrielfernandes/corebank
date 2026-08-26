@@ -35,7 +35,7 @@ public class RealizarTransacaoUseCase {
         Conta destino = contaRepositoryPort.buscarPorId(contaDestinoId)
                 .orElseThrow(() -> new RegraDeNegocioException("Conta de destino não encontrada"));
 
-        if(origem.getSaldo().compareTo(valor) < 0) {
+        if(origem.getSaldoDisponivelTotal().compareTo(valor) < 0) {
             throw new SaldoInsuficienteException();
         }
 

@@ -7,6 +7,8 @@ import com.agenciabancaria.corebank.domain.repository.UsuarioRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class AbrirContaUseCase {
@@ -24,6 +26,10 @@ public class AbrirContaUseCase {
 
         if (contaRepositoryPort.existePorNumeroConta(conta.getNumeroConta())) {
             throw new RegraDeNegocioException("Já existe uma conta cadastrada com o número: " +conta.getNumeroConta());
+        }
+
+        if (conta.getLimiteChequeEspecial() == null){
+            conta.setLimiteChequeEspecial(BigDecimal.ZERO);
         }
 
         return contaRepositoryPort.salvar(conta);

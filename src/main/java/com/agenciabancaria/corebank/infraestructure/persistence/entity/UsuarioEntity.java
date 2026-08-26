@@ -1,5 +1,6 @@
 package com.agenciabancaria.corebank.infraestructure.persistence.entity;
 
+import com.agenciabancaria.corebank.domain.model.Usuario;
 import com.agenciabancaria.corebank.domain.enums.TipoPerfil;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,4 +52,25 @@ public class UsuarioEntity {
     @LastModifiedDate
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
+
+    public Usuario toDomain(){
+        return Usuario.builder()
+                .id(this.id)
+                .nome(this.nomeCompleto)
+                .cpf(this.cpf)
+                .email(this.email)
+                .dataCriacao(this.dataCriacao)
+                .dataAtualizacao(this.dataAtualizacao)
+                .build();
+    }
+
+    public static UsuarioEntity fromDomain(Usuario usuario){
+        if(usuario == null) return null;
+        return UsuarioEntity.builder()
+                .id(usuario.getId())
+                .nomeCompleto(usuario.getNome())
+                .cpf(usuario.getCpf())
+                .email(usuario.getEmail())
+                .build();
+    }
 }
