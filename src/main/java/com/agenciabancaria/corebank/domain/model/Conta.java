@@ -21,6 +21,8 @@ public class Conta {
     private Usuario usuario;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+    private Integer tentativasSenha;
+    private BigDecimal limiteGlobal;
 
     public BigDecimal getSaldoDisponivelTotal() { // <-- Adicionado
         BigDecimal limite =(limiteChequeEspecial != null) ? limiteChequeEspecial : BigDecimal.ZERO;

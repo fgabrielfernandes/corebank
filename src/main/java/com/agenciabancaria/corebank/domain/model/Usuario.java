@@ -16,7 +16,7 @@ public class Usuario {
     private String cpf;
     private String email;
     private String senha;
-    private TipoPerfil perfil;
+    private TipoPerfil tipoPerfil;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 }

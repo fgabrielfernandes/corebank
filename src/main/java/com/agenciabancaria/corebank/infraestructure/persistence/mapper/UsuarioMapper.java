@@ -18,7 +18,7 @@ public class UsuarioMapper {
                 .cpf(entity.getCpf())
                 .email(entity.getEmail())
                 .senha(entity.getSenha())
-                .perfil(entity.getTipoPerfil())
+                .tipoPerfil(entity.getTipoPerfil())
                 .dataCriacao(entity.getDataCriacao())
                 .dataAtualizacao(entity.getDataAtualizacao())
                 .build();
@@ -35,7 +35,7 @@ public class UsuarioMapper {
                 .cpf(domain.getCpf())
                 .email(domain.getEmail())
                 .senha(domain.getSenha())
-                .tipoPerfil(domain.getPerfil())
+                .tipoPerfil(domain.getTipoPerfil())
                 .dataCriacao(domain.getDataCriacao())
                 .dataAtualizacao(domain.getDataAtualizacao())
                 .build();

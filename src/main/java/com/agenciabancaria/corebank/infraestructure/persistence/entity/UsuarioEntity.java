@@ -32,10 +32,10 @@ public class UsuarioEntity {
     @Column(name = "nome_completo", nullable = false, length = 150)
     private String nomeCompleto;
 
-    @Column(name= "cpf", nullable = false, length = 11)
+    @Column(name= "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, unique = true ,length = 100)
     private String email;
 
     @Column(name ="senha_hash", nullable = false)
@@ -59,6 +59,8 @@ public class UsuarioEntity {
                 .nome(this.nomeCompleto)
                 .cpf(this.cpf)
                 .email(this.email)
+                .senha(this.senha)
+                .tipoPerfil(this.tipoPerfil)
                 .dataCriacao(this.dataCriacao)
                 .dataAtualizacao(this.dataAtualizacao)
                 .build();
@@ -71,6 +73,8 @@ public class UsuarioEntity {
                 .nomeCompleto(usuario.getNome())
                 .cpf(usuario.getCpf())
                 .email(usuario.getEmail())
+                .senha(usuario.getSenha())
+                .tipoPerfil(usuario.getTipoPerfil())
                 .build();
     }
 }

@@ -2,7 +2,7 @@ package com.agenciabancaria.corebank.infraestructure.persistence.adapter;
 
 import com.agenciabancaria.corebank.domain.model.Conta;
 import com.agenciabancaria.corebank.domain.repository.ContaRepositoryPort;
-import com.agenciabancaria.corebank.infraestructure.persistence.mapper.ContaMapper;
+import com.agenciabancaria.corebank.infraestructure.persistence.entity.ContaEntity;
 import com.agenciabancaria.corebank.infraestructure.persistence.repository.ContaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,25 +14,24 @@ import java.util.Optional;
 public class ContaPersistenceAdapter implements ContaRepositoryPort {
 
     private final ContaRepository contaRepository;
-    private final ContaMapper contaMapper;
 
     @Override
     public Conta salvar(Conta conta) {
-        var entity = contaMapper.toEntity(conta);
+        var entity = ContaEntity.fromDomain(conta);
         var savedEntity = contaRepository.save(entity);
-        return contaMapper.toDomain(savedEntity);
+        return savedEntity.toDomain();
     }
 
     @Override
     public Optional<Conta> buscarPorId(Long id) {
         return contaRepository.findById(id)
-                .map(contaMapper::toDomain);
+                .map(ContaEntity::toDomain);
     }
 
     @Override
     public Optional<Conta> buscarPorNumeroConta(String numeroConta) {
         return contaRepository.findByNumeroConta(numeroConta)
-                .map(contaMapper::toDomain);
+                .map(ContaEntity::toDomain);
     }
 
     @Override

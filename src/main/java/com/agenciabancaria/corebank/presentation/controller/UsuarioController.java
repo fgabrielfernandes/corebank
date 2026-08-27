@@ -26,6 +26,8 @@ public class UsuarioController {
                 .nome(request.getNome())
                 .cpf(request.getCpf())
                 .email(request.getEmail())
+                .senha(request.getSenha())
+                .tipoPerfil(request.getTipoPerfil())
                 .build();
 
         Usuario usuarioCriado = criarUsuarioUseCase.executar(usuarioDomain);

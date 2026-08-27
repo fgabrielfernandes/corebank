@@ -36,7 +36,18 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort {
     }
 
     @Override
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email)
+                .map(usuarioMapper::toDomain);
+    }
+
+    @Override
     public boolean existePorCpf(String cpf) {
         return usuarioRepository.existsByCpf(cpf);
+    }
+
+    @Override
+    public boolean existePorEmail(String email) {
+        return usuarioRepository.existsByEmail(email);
     }
 }

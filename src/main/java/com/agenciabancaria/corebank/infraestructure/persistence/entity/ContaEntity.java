@@ -41,6 +41,9 @@ public class ContaEntity {
     @Column(name = "limite_cheque_especial", nullable = false, precision = 19, scale = 2)
     private BigDecimal limiteChequeEspecial;
 
+    @Column(name = "limite_global", nullable = false, precision = 19, scale = 2)
+    private BigDecimal limiteGlobal;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status_conta", nullable = false, length = 30)
     private StatusConta statusConta;
@@ -67,7 +70,9 @@ public class ContaEntity {
                 .numeroConta(this.numeroConta)
                 .saldo(this.saldo)
                 .limiteChequeEspecial(this.limiteChequeEspecial)
+                .limiteGlobal(this.limiteGlobal)
                 .status(this.statusConta)
+                .tentativasSenha(this.tentativasSenha)
                 .usuario(this.usuario != null ? this.usuario.toDomain() : null)
                 .dataCriacao(this.dataCriacao)
                 .dataAtualizacao(this.dataAtualizacao)
@@ -75,14 +80,16 @@ public class ContaEntity {
     }
 
     public static ContaEntity fromDomain(Conta conta) {
-        if(conta == null) return null;
+        if (conta == null) return null;
         return ContaEntity.builder()
                 .id(conta.getId())
-                .agencia(conta.getAgencia())
+                .agencia(conta.getAgencia() != null && !conta.getAgencia().isBlank() ? conta.getAgencia() : "0001")
                 .numeroConta(conta.getNumeroConta())
-                .saldo(conta.getSaldo())
-                .limiteChequeEspecial(conta.getLimiteChequeEspecial())
-                .statusConta(conta.getStatus())
+                .saldo(conta.getSaldo() != null ? conta.getSaldo() : BigDecimal.ZERO)
+                .limiteChequeEspecial(conta.getLimiteChequeEspecial() != null ? conta.getLimiteChequeEspecial() : BigDecimal.ZERO)
+                .limiteGlobal(conta.getLimiteGlobal() != null ? conta.getLimiteGlobal() : BigDecimal.ZERO)
+                .statusConta(conta.getStatus() != null ? conta.getStatus() : StatusConta.ATIVA)
+                .tentativasSenha(conta.getTentativasSenha() != null ? conta.getTentativasSenha() : 0)
                 .usuario(conta.getUsuario() != null ? UsuarioEntity.fromDomain(conta.getUsuario()) : null)
                 .build();
     }
