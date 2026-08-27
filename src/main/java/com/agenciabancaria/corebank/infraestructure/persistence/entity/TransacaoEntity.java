@@ -1,6 +1,7 @@
 package com.agenciabancaria.corebank.infraestructure.persistence.entity;
 
 import com.agenciabancaria.corebank.domain.enums.TipoTransacao;
+import com.agenciabancaria.corebank.domain.model.Transacao;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -48,4 +49,29 @@ public class TransacaoEntity {
     @CreatedDate
     @Column(name = "data_transacao", nullable = false, updatable = false)
     private LocalDateTime dataTransacao;
+
+    public Transacao toDomain(){
+        return Transacao.builder()
+                .id(this.id)
+                .valor(this.valor)
+                .tipo(this.tipoTransacao)
+                .descricao(this.descricao)
+                .contaOrigem(this.contaOrigem != null ? this.contaOrigem.toDomain() : null)
+                .contaDestino(this.contaDestino != null ? this.contaDestino.toDomain() :null)
+                .dataTransacao(this.dataTransacao)
+                .build();
+    }
+
+    public static TransacaoEntity fromDomain(Transacao transacao){
+        if(transacao == null) return null;
+        return TransacaoEntity.builder()
+                .id(transacao.getId())
+                .valor(transacao.getValor())
+                .tipoTransacao(transacao.getTipo())
+                .descricao(transacao.getDescricao())
+                .contaOrigem(transacao.getContaOrigem() != null ? ContaEntity.fromDomain(transacao.getContaOrigem()) : null)
+                .contaDestino(transacao.getContaDestino() != null ? ContaEntity.fromDomain(transacao.getContaDestino()):null)
+                .dataTransacao(transacao.getDataTransacao())
+                .build();
+    }
 }
