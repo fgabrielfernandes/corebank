@@ -35,4 +35,12 @@ public class TransacaoPersistenceAdapter implements  TransacaoRepositoryPort {
                 .map(TransacaoEntity::toDomain)
                 .toList();
     }
+
+    @Override
+    public List<Transacao> buscarExtratoPorConta(Long contaId){
+        return transacaoRepository.buscarExtratoPorConta(contaId)
+                .stream()
+                .map(TransacaoEntity::toDomain)
+                .toList();
+    }
 }

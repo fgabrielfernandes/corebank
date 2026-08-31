@@ -9,4 +9,5 @@ public interface TransacaoRepositoryPort {
     Transacao salvar(Transacao transacao);
     Optional<Transacao> buscarPorId(Long id);
     List<Transacao> buscarPorContaOrigemIdOuContaDestinoId(Long contaOrigemId, Long contaDestinoId);
+    List<Transacao> buscarExtratoPorConta(Long contaId);
 }

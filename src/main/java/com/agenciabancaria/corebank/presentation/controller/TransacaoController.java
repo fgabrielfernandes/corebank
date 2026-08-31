@@ -1,5 +1,6 @@
 package com.agenciabancaria.corebank.presentation.controller;
 
+import com.agenciabancaria.corebank.application.usecase.ConsultarExtratoUseCase;
 import com.agenciabancaria.corebank.application.usecase.DepositarUseCase;
 import com.agenciabancaria.corebank.application.usecase.RealizarTransacaoUseCase;
 import com.agenciabancaria.corebank.application.usecase.SacarUseCase;
@@ -9,10 +10,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/transacoes")
@@ -22,6 +22,7 @@ public class TransacaoController {
     private final DepositarUseCase depositarUseCase;
     private final SacarUseCase sacarUseCase;
     private final RealizarTransacaoUseCase realizarTransacaoUseCase;
+    private final ConsultarExtratoUseCase consultarExtratoUseCase;
 
     @PostMapping("/deposito")
     public ResponseEntity<TransacaoResponseDTO> depositar(@RequestBody @Valid TransacaoRequestDTO request) {
@@ -52,5 +53,14 @@ public class TransacaoController {
                 request.getDescricao()
         );
         return ResponseEntity.ok(TransacaoResponseDTO.fromDomain(transacao));
+    }
+
+    @GetMapping("/extrato/{contaId}")
+    public ResponseEntity<List<TransacaoResponseDTO>> consultarExtrato(@PathVariable Long contaId) {
+        var extrato = consultarExtratoUseCase.executar(contaId);
+        var response = extrato.stream()
+                .map(TransacaoResponseDTO::fromDomain)
+                .toList();
+        return ResponseEntity.ok(response);
     }
 }
